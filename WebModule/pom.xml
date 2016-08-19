@@ -18,6 +18,7 @@
     <properties>
         <jersey.version>1.8</jersey.version>
         <spring.version>3.0.5.RELEASE</spring.version>
+        <security.version>3.1.0.RELEASE</security.version>
         <postgres.version>9.4.1209.jre6</postgres.version>
         <mysql-connector.version>5.1.36</mysql-connector.version>
         <hibernate.version>3.6.10.Final</hibernate.version>
@@ -27,9 +28,15 @@
     <dependencies>
 
         <dependency>
-            <groupId>project</groupId>
+            <groupId>project.main</groupId>
             <artifactId>Domain</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
         </dependency>
 
         <dependency>
@@ -45,19 +52,10 @@
             <version>3.12.1.GA</version>
         </dependency>
 
-        <!-- Persistence API-->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
-        </dependency>
-
-
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
+            <groupId>com.ibm.websphere.appserver.api</groupId>
+            <artifactId>com.ibm.websphere.appserver.api.basics</artifactId>
+            <version>1.2.13</version>
         </dependency>
 
         <!-- jersey-server -->
@@ -83,35 +81,57 @@
 
 
         <!-- Spring -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-core</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-tx</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- Spring Security -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-core</artifactId>-->
+            <!--<version>${security.version}</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${security.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-orm</artifactId>-->
+            <!--<version>${spring.version}</version>-->
+        <!--</dependency>-->
 
         <!-- Jersey + Spring -->
         <dependency>
@@ -119,6 +139,10 @@
             <artifactId>jersey-spring</artifactId>
             <version>${jersey.version}</version>
             <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring</artifactId>
