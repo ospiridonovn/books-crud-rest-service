@@ -1,22 +1,14 @@
 package com.ospiridonovn.rest;
 
-import com.ibm.websphere.security.CustomRegistryException;
-import com.ibm.websphere.security.EntryNotFoundException;
-import com.ibm.websphere.security.PasswordCheckFailedException;
 import com.ospiridonovn.domain.Book;
 import com.ospiridonovn.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
-import javax.naming.NamingException;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
