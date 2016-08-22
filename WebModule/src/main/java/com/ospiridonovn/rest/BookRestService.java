@@ -60,7 +60,13 @@ public class BookRestService {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Book> list() {
-        return (List<Book>) bookService.list();
+    public Response list() {
+//        return (List<Book>) bookService.list();
+        return Response.ok() //200
+                .entity(bookService.list())
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+
     }
 }
