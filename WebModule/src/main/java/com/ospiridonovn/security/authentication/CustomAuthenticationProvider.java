@@ -1,4 +1,4 @@
-package com.ospiridonovn.security;
+package com.ospiridonovn.security.authentication;
 
 import com.ibm.websphere.security.CustomRegistryException;
 import com.ibm.websphere.security.PasswordCheckFailedException;

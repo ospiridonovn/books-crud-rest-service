@@ -24,8 +24,7 @@ public class BookRestService {
     @Produces(MediaType.APPLICATION_JSON)
     @PreAuthorize("hasRole('ROLE_USER')")
     public Response get(@PathParam("id") String id) {
-//        return bookService.get(Long.parseLong(id));
-        return Response.ok() //200
+        return Response.ok()
                 .entity(bookService.get(Long.parseLong(id)))
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -39,8 +38,7 @@ public class BookRestService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Response add(Book book) {
         bookService.add(book);
-//        return Response.status(200).build();
-        return Response.ok() //200
+        return Response.ok()
                 .entity(book)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -54,8 +52,7 @@ public class BookRestService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Response update(Book book) {
         bookService.update(book);
-//        return book;
-        return Response.ok() //200
+        return Response.ok()
                 .entity(book)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -69,8 +66,7 @@ public class BookRestService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Response delete(@PathParam("id") String id) {
         bookService.delete(bookService.get(Long.parseLong(id)));
-//        return bookService.get(Long.parseLong(id));
-        return Response.ok() //200
+        return Response.ok()
                 .entity(bookService.get(Long.parseLong(id)))
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -82,8 +78,7 @@ public class BookRestService {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response list() {
-//        return (List<Book>) bookService.list();
-        return Response.ok() //200
+        return Response.ok()
                 .entity(bookService.list())
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")

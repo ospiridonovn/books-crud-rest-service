@@ -1,6 +1,4 @@
-package com.ospiridonovn.security;
-
-import com.ospiridonovn.security.token.Role;
+package com.ospiridonovn.security.authentication;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,5 +7,4 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IAuthenticationService {
     public String authenticate(String username, String password, HttpServletRequest request);
-    public boolean authenticate(String username, String password, Role role);
 }

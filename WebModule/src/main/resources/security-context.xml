@@ -2,19 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 
     <!-- This is where we configure Spring-Security  -->
     <security:http auto-config="true" use-expressions="true" access-denied-page="/access_denied">
-        <!--<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<security:intercept-url pattern="/book/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
-        <!--<security:form-login-->
-                <!--authentication-failure-url="/login?error=true"-->
-                <!--default-target-url="/rest/book/2"/>-->
-
         <security:logout
                 invalidate-session="true"
                 logout-url="/logout"/>
@@ -22,121 +15,8 @@
 
     <security:global-method-security pre-post-annotations="enabled" />
 
-    <!--<security:authentication-manager>-->
-        <!--<security:authentication-provider ref="customAuthenticationProvider"/>-->
-    <!--</security:authentication-manager>-->
-
     <security:authentication-manager>
         <security:authentication-provider ref="customAuthenticationProvider"/>
     </security:authentication-manager>
-
-    <!-- Filter to store the Authentication object in the HTTP Session -->
-    <!--<bean id="securityContextPersistentFilter"-->
-          <!--class="org.springframework.security.web.context.SecurityContextPersistenceFilter">-->
-        <!--&lt;!&ndash;<constructor-arg ref="httpSessionSecurityContextRepository"/>&ndash;&gt;-->
-    <!--</bean>-->
-
-    <!--<bean id="httpSessionSecurityContextRepository"-->
-          <!--class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />-->
-
-    <!--
-      For authentication:
-      user-search-filter: the attribute name that contains the user name
-         user-search-base: the base path where to find user information
-
-         For authorization:
-         group-search-filter: the attribute name that contains the full dn of a user
-         group-search-base: the base path where to find role information
-         group-role-attribute: the attribute name that contains the role type
-         role-prefix: the prefix to be added when retrieving role values
-
-         For server access:
-         manager-dn: the full dn of the person that has access to an LDAP server
-         manager-password: the password of the person that has access to an LDAP server
-    -->
-    <!--<security:authentication-manager>-->
-        <!--<security:ldap-authentication-provider-->
-                <!--user-search-filter="(uid={0})"-->
-                <!--user-search-base="ou=users"-->
-                <!--group-search-filter="(uniqueMember={0})"-->
-                <!--group-search-base="ou=groups"-->
-                <!--group-role-attribute="cn"-->
-                <!--role-prefix="ROLE_">-->
-        <!--</security:ldap-authentication-provider>-->
-    <!--</security:authentication-manager>-->
-
-    <!--<security:ldap-server url="ldap://localhost:10389/o=mojo" manager-dn="uid=admin,ou=system" manager-password="secret" />-->
-
-
-
-
-
-
-
-
-
-    <!--&lt;!&ndash; Begin Web Security &ndash;&gt;-->
-    <!--&lt;!&ndash; unsecured resource if needed &ndash;&gt;-->
-    <!--&lt;!&ndash;<sec:http pattern="/rest/**" security="none"/>&ndash;&gt;-->
-    <!--<sec:http use-expressions="true">-->
-        <!--&lt;!&ndash; configure the roles allowed to access the app &ndash;&gt;-->
-        <!--<sec:intercept-url pattern="/rest/**" access="hasAnyRole('MANAGER', 'USER')"/>-->
-        <!--&lt;!&ndash; add more urls/patters/roles to refine security &ndash;&gt;-->
-
-        <!--<sec:form-login/>-->
-        <!--<sec:logout/>-->
-        <!--&lt;!&ndash; if you are adding to an exiting app,-->
-                <!--you may need to disable CSRF protection until you can make application changes. &ndash;&gt;-->
-        <!--&lt;!&ndash; sec:csrf disabled="true"/ &ndash;&gt;-->
-    <!--</sec:http>-->
-
-
-    <!--&lt;!&ndash;<bean id="propertyConfigurer"&ndash;&gt;-->
-          <!--&lt;!&ndash;class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&ndash;&gt;-->
-          <!--&lt;!&ndash;p:location="classpath:ldap.properties" />&ndash;&gt;-->
-
-    <!--&lt;!&ndash; add the properties below to your app's properties file-->
-            <!--or replace with hardcoded values to get working &ndash;&gt;-->
-    <!--<sec:ldap-server-->
-            <!--id="contextSource"-->
-            <!--url="ldap://localhost:10389/"-->
-            <!--manager-dn="uid=admin,ou=system"-->
-            <!--manager-password="secret"/>-->
-
-    <!--<sec:authentication-manager erase-credentials="true">-->
-        <!--<sec:authentication-provider ref='ldapAuthProvider' />-->
-    <!--</sec:authentication-manager>-->
-
-
-    <!--&lt;!&ndash; using bean-based configuration here to set the DefaultLdapAuthoritiesPopulater with-->
-        <!--ignorePartialResultsException=true.  This is a known Spring/AD issue and a workaround for it &ndash;&gt;-->
-    <!--<bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">-->
-        <!--<constructor-arg>-->
-            <!--&lt;!&ndash; the bind authenticator will first lookup the user using the service account credentials, then-->
-                 <!--attempt to bind the user with their password once found &ndash;&gt;-->
-            <!--<bean class="org.springframework.security.ldap.authentication.BindAuthenticator">-->
-                <!--<constructor-arg ref="contextSource" />-->
-                <!--<property name="userSearch" ref="userSearch" />-->
-            <!--</bean>-->
-        <!--</constructor-arg>-->
-        <!--<constructor-arg>-->
-            <!--<bean class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">-->
-                <!--<constructor-arg ref="contextSource" />-->
-                <!--<constructor-arg value="ou=users,ou=system" /> &lt;!&ndash; group search base &ndash;&gt;-->
-                <!--&lt;!&ndash; <property name="defaultRole" value="ROLE_USER" />-->
-                    <!--You can add a default role to everyone if needed &ndash;&gt;-->
-                <!--<property name="searchSubtree" value="true" />-->
-                <!--<property name="ignorePartialResultException" value="true" />-->
-                <!--<property name="groupSearchFilter" value="(member={0})" />-->
-            <!--</bean>-->
-        <!--</constructor-arg>-->
-    <!--</bean>-->
-    <!--<bean id="userSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">-->
-        <!--<constructor-arg index="0" value="ou=users,ou=system" />-->
-        <!--<constructor-arg index="1" value="(sAMAccountName={0})" />-->
-        <!--<constructor-arg index="2" ref="contextSource" />-->
-        <!--<property name="searchSubtree" value="true" />-->
-    <!--</bean>-->
-    <!--&lt;!&ndash;  end Web Security &ndash;&gt;-->
 
 </beans>
