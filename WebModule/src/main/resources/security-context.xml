@@ -8,12 +8,13 @@
 
 
     <!-- This is where we configure Spring-Security  -->
-    <security:http auto-config="true" use-expressions="true" access-denied-page="/access_denied" >
+    <security:http auto-config="true" use-expressions="true" access-denied-page="/access_denied">
         <!--<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>-->
         <!--<security:intercept-url pattern="/book/**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')"/>-->
         <!--<security:form-login-->
                 <!--authentication-failure-url="/login?error=true"-->
                 <!--default-target-url="/rest/book/2"/>-->
+
         <security:logout
                 invalidate-session="true"
                 logout-url="/logout"/>
@@ -29,8 +30,14 @@
         <security:authentication-provider ref="customAuthenticationProvider"/>
     </security:authentication-manager>
 
+    <!-- Filter to store the Authentication object in the HTTP Session -->
+    <!--<bean id="securityContextPersistentFilter"-->
+          <!--class="org.springframework.security.web.context.SecurityContextPersistenceFilter">-->
+        <!--&lt;!&ndash;<constructor-arg ref="httpSessionSecurityContextRepository"/>&ndash;&gt;-->
+    <!--</bean>-->
 
-
+    <!--<bean id="httpSessionSecurityContextRepository"-->
+          <!--class="org.springframework.security.web.context.HttpSessionSecurityContextRepository" />-->
 
     <!--
       For authentication:

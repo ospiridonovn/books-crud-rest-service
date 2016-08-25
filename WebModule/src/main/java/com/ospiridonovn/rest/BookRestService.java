@@ -3,6 +3,7 @@ package com.ospiridonovn.rest;
 import com.ospiridonovn.domain.Book;
 import com.ospiridonovn.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +23,13 @@ public class BookRestService {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Book get(@PathParam("id") String id) {
-        return bookService.get(Long.parseLong(id));
+    public Response get(@PathParam("id") String id) {
+//        return bookService.get(Long.parseLong(id));
+        return Response.ok() //200
+                .entity(bookService.get(Long.parseLong(id)))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
     }
 
     @POST
@@ -33,7 +39,12 @@ public class BookRestService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public Response add(Book book) {
         bookService.add(book);
-        return Response.status(200).build();
+//        return Response.status(200).build();
+        return Response.ok() //200
+                .entity(book)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
     }
 
     @PUT
@@ -41,9 +52,14 @@ public class BookRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Book update(Book book) {
+    public Response update(Book book) {
         bookService.update(book);
-        return book;
+//        return book;
+        return Response.ok() //200
+                .entity(book)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
     }
 
     @DELETE
@@ -51,9 +67,14 @@ public class BookRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public Book delete(@PathParam("id") String id) {
+    public Response delete(@PathParam("id") String id) {
         bookService.delete(bookService.get(Long.parseLong(id)));
-        return bookService.get(Long.parseLong(id));
+//        return bookService.get(Long.parseLong(id));
+        return Response.ok() //200
+                .entity(bookService.get(Long.parseLong(id)))
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
     }
 
 

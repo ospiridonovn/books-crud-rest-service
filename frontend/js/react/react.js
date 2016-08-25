@@ -3419,7 +3419,7 @@ var hasReadOnlyValue = {
   'hidden': true,
   'radio': true,
   'reset': true,
-  'submit': true
+  "__submit": true
 };
 
 function _assertSingleLink(inputProps) {
@@ -3815,7 +3815,7 @@ var alreadyListeningTo = {};
 var isMonitoringScrollValue = false;
 var reactTopListenersCounter = 0;
 
-// For events like 'submit' which don't consistently bubble (which we trap at a
+// For events like '__submit' which don't consistently bubble (which we trap at a
 // lower node than `document`), binding at `document` would cause duplicate
 // events so we don't include them here
 var topEventMapping = {
@@ -5070,10 +5070,10 @@ var ReactClass = {
       // ReactClasses doesn't have constructors. Instead, they use the
       // getInitialState and componentWillMount methods for initialization.
 
-      var initialState = this.getInitialState ? this.getInitialState() : null;
+      var initialState = Books.getInitialState ? Books.getInitialState() : null;
       if ("development" !== 'production') {
         // We allow auto-mocks to proceed as if they're returning null.
-        if (typeof initialState === 'undefined' && this.getInitialState._isMockFunction) {
+        if (typeof initialState === 'undefined' && Books.getInitialState._isMockFunction) {
           // This is probably bad practice. Consider warning here and
           // deprecating this convenience.
           initialState = null;
@@ -5103,8 +5103,8 @@ var ReactClass = {
       if (Constructor.getDefaultProps) {
         Constructor.getDefaultProps.isReactClassApproved = {};
       }
-      if (Constructor.prototype.getInitialState) {
-        Constructor.prototype.getInitialState.isReactClassApproved = {};
+      if (Books.getInitialState) {
+        Books.getInitialState.isReactClassApproved = {};
       }
     }
 
@@ -5541,7 +5541,7 @@ var ReactCompositeComponentMixin = {
       // Since plain JS classes are defined without any special initialization
       // logic, we can not catch common errors early. Therefore, we have to
       // catch them here, at initialization time, instead.
-      "development" !== 'production' ? warning(!inst.getInitialState || inst.getInitialState.isReactClassApproved, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : undefined;
+      "development" !== 'production' ? warning(!Books.getInitialState || Books.getInitialState.isReactClassApproved, 'getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', this.getName() || 'a component') : undefined;
       "development" !== 'production' ? warning(!inst.getDefaultProps || inst.getDefaultProps.isReactClassApproved, 'getDefaultProps was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Use a static property to define defaultProps instead.', this.getName() || 'a component') : undefined;
       "development" !== 'production' ? warning(!inst.propTypes, 'propTypes was defined as an instance property on %s. Use a static ' + 'property to define propTypes instead.', this.getName() || 'a component') : undefined;
       "development" !== 'production' ? warning(!inst.contextTypes, 'contextTypes was defined as an instance property on %s. Use a ' + 'static property to define contextTypes instead.', this.getName() || 'a component') : undefined;
@@ -6514,7 +6514,7 @@ function trapBubbledEventsLocal() {
       inst._wrapperState.listeners = [ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topError, 'error', node), ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topLoad, 'load', node)];
       break;
     case 'form':
-      inst._wrapperState.listeners = [ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topReset, 'reset', node), ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topSubmit, 'submit', node)];
+      inst._wrapperState.listeners = [ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topReset, 'reset', node), ReactBrowserEventEmitter.trapBubbledEvent(EventConstants.topLevelTypes.topSubmit, '__submit', node)];
       break;
   }
 }
@@ -14524,7 +14524,7 @@ var eventTypes = {
       captured: keyOf({ onStalledCapture: true })
     }
   },
-  submit: {
+  __submit: {
     phasedRegistrationNames: {
       bubbled: keyOf({ onSubmit: true }),
       captured: keyOf({ onSubmitCapture: true })
@@ -14634,7 +14634,7 @@ var topLevelEventsToDispatchConfig = {
   topSeeked: eventTypes.seeked,
   topSeeking: eventTypes.seeking,
   topStalled: eventTypes.stalled,
-  topSubmit: eventTypes.submit,
+  topSubmit: eventTypes.__submit,
   topSuspend: eventTypes.suspend,
   topTimeUpdate: eventTypes.timeUpdate,
   topTouchCancel: eventTypes.touchCancel,
