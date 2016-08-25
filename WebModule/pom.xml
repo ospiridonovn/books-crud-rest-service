@@ -23,6 +23,11 @@
         <mysql-connector.version>5.1.36</mysql-connector.version>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <persistence-api.version>2.1</persistence-api.version>
+        <jjwt.version>0.6.0</jjwt.version>
+        <cglib.version>2.2.2</cglib.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <javassist.version>3.12.1.GA</javassist.version>
+        <wsapi.version>1.2.13</wsapi.version>
     </properties>
 
     <dependencies>
@@ -33,35 +38,39 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- JSONWebToken -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.6.0</version>
+            <version>${jjwt.version}</version>
         </dependency>
 
+        <!-- cglib -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>2.2.2</version>
+            <version>${cglib.version}</version>
         </dependency>
 
+        <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.6.1</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
-
+        <!-- Javassist -->
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
+            <version>${javassist.version}</version>
         </dependency>
 
+        <!-- WebSphere AppServer API -->
         <dependency>
             <groupId>com.ibm.websphere.appserver.api</groupId>
             <artifactId>com.ibm.websphere.appserver.api.basics</artifactId>
-            <version>1.2.13</version>
+            <version>${wsapi.version}</version>
         </dependency>
 
         <!-- jersey-server -->
@@ -85,38 +94,14 @@
             <version>${jersey.version}</version>
         </dependency>
 
+        <!-- PostgreSQL-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres.version}</version>
+        </dependency>
 
-        <!-- Spring -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-core</artifactId>-->
-            <!--<version>${spring.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-context</artifactId>-->
-            <!--<version>${spring.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-web</artifactId>-->
-            <!--<version>${spring.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-tx</artifactId>-->
-            <!--<version>${spring.version}</version>-->
-        <!--</dependency>-->
-
-        <!-- Spring Security -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-core</artifactId>-->
-            <!--<version>${security.version}</version>-->
-        <!--</dependency>-->
+        <!-- Spring security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
@@ -132,12 +117,6 @@
             <artifactId>spring-security-ldap</artifactId>
             <version>${security.version}</version>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-orm</artifactId>-->
-            <!--<version>${spring.version}</version>-->
-        <!--</dependency>-->
 
         <!-- Jersey + Spring -->
         <dependency>
@@ -171,22 +150,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
-        <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>${postgres.version}</version>
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<version>${mysql-connector.version}</version>-->
-        <!--</dependency>-->
-
     </dependencies>
-
 
     <build>
         <plugins>
