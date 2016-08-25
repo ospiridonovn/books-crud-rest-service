@@ -1,6 +1,6 @@
 package com.ospiridonovn.security;
 
-import com.ospiridonovn.security.token.Role;
+import com.ospiridonovn.security.authentication.IAuthenticationService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +26,7 @@ import java.util.List;
  * Created by ospiridonov on 22.08.2016.
  */
 @Component
-public class CorsFilter extends OncePerRequestFilter {
+public class RequestsFilter extends OncePerRequestFilter {
 
     @Autowired
     IAuthenticationService authenticationService;
@@ -58,7 +56,6 @@ public class CorsFilter extends OncePerRequestFilter {
             } else {
                 String username = claims.get("username", String.class);
                 String password = claims.get("password", String.class);
-//                authenticationService.authenticate(username, password, Role.USER);
                 List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
                 Authentication authentication = new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
