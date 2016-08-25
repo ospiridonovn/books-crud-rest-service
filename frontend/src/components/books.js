@@ -42,7 +42,7 @@ export default class Books extends Component {
         console.log(JSON.stringify(data));
         if (!this.state.isNewBook) {
             data = {
-                id: this.state.title,
+                id: this.state.id,
                 title: this.state.title,
                 author: this.state.author,
                 releaseYear: this.state.releaseYear
@@ -245,71 +245,3 @@ var BookInTable = React.createClass({
         )
     }
 });
-
-
-
-// var Books = React.createClass({
-//
-//     propTypes: {
-//         data: React.PropTypes.array.isRequired
-//     },
-//as
-//     getInitialState: function () {
-//         return {
-//             searchResults: []
-//         }
-//     },
-//
-//     componentDidMount: function () {
-//         this.__search('http://localhost:9081/WebModule/book/');
-//     },
-//
-//     __search: function (URL) {
-//         $.ajax({
-//             type: 'GET',
-//             url: URL,
-//             dataType: 'json',
-//             success: function (response) {
-//                 this.setState({searchResults: response})
-//             }.bind(this)
-//         })
-//     },
-//
-//     render: function() {
-//         var searchResults = this.state.searchResults;
-//         var booksTemplate;
-//
-//         if (searchResults.length > 0) {
-//             booksTemplate = searchResults.map(function(item, index) {
-//                 return (
-//                     <BookInTable key={index} data={item} />
-//                 )
-//             })
-//         } else {
-//             booksTemplate = <p>No books</p>
-//         }
-//
-//         return (
-//             <div>
-//                 <table className='table table-bordered table-hover table-condensed'>
-//                     <thead>
-//                         <tr>
-//                             <th>Author</th>
-//                             <th>Title</th>
-//                             <th>Release Year</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {booksTemplate}
-//                     </tbody>
-//                 </table>
-//             </div>
-//         )
-//     }
-// });
-//
-// ReactDOM.render(
-//     <Books/>,
-//     // <Login/>,
-//     document.getElementById('root')
-// );
